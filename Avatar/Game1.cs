@@ -16,8 +16,10 @@ namespace Avatar
         SpriteBatch spriteBatch;
 
         GameStateManager gameStateManager;
+
         ITitleIntroState titleIntroState;
         IMainMenuState startMenuState;
+        IGamePlayState gamePlayState;
 
         static Rectangle screenRectangle;
 
@@ -41,6 +43,10 @@ namespace Avatar
         {
             get { return startMenuState; }
         }
+        public IGamePlayState GamePlayState
+        {
+            get { return gamePlayState; }
+        }
 
 
         public Game1()
@@ -60,6 +66,7 @@ namespace Avatar
 
             titleIntroState = new TitleIntroState(this);
             startMenuState = new MainMenuState(this);
+            gamePlayState = new GamePlayState(this);
 
             gameStateManager.ChangeState((TitleIntroState)titleIntroState, PlayerIndex.One);
         }

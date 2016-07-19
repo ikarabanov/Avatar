@@ -63,10 +63,18 @@ namespace Avatar.GameStates
                 if (menuComponent.SelectedIndex == 0)
                 {
                     Xin.FlushInput();
+
+                    GameRef.GamePlayState.SetUpNewGame();
+                    GameRef.GamePlayState.StartGame();
+                    manager.PushState((GamePlayState)GameRef.GamePlayState, PlayerIndexInControl);
                 }
                 else if (menuComponent.SelectedIndex == 1)
                 {
                     Xin.FlushInput();
+
+                    GameRef.GamePlayState.LoadExistingGame();
+                    GameRef.GamePlayState.StartGame();
+                    manager.PushState((GamePlayState)GameRef.GamePlayState, PlayerIndexInControl);
                 }
                 else if (menuComponent.SelectedIndex == 2)
                 {
