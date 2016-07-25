@@ -1,9 +1,11 @@
 ﻿using Avatar.Components;
 using Avatar.GameStates;
 using Avatar.StateManager;
+using Avatar.TileEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Avatar
 {
@@ -14,6 +16,7 @@ namespace Avatar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Dictionary<AnimationKey, Animation> playerAnimations = new Dictionary<AnimationKey, Animation>();
 
         GameStateManager gameStateManager;
 
@@ -47,7 +50,10 @@ namespace Avatar
         {
             get { return gamePlayState; }
         }
-
+        public Dictionary<AnimationKey, Animation> PlayerAnimations
+        {
+            get { return playerAnimations; }
+        }
 
         public Game1()
         {
@@ -75,6 +81,18 @@ namespace Avatar
         {
             Components.Add(new Xin(this));
 
+            Animation animation = new Animation(3, 32, 32, 0, 0);
+            playerAnimations.Add(AnimationKey.WalkDown, animation);
+
+            animation = new Animation(3, 32, 32, 0, 32);
+            playerAnimations.Add(AnimationKey.WalkLeft, animation);
+
+            animation = new Animation(3, 32, 32, 0, 64);
+            playerAnimations.Add(AnimationKey.WalkRight, animation);
+
+            animation = new Animation(3, 32, 32, 0, 96);
+            playerAnimations.Add(AnimationKey.WalkUp, animation);
+
             base.Initialize();
         }
 
@@ -85,7 +103,6 @@ namespace Avatar
 
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -99,8 +116,6 @@ namespace Avatar
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
