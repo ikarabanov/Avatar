@@ -121,15 +121,15 @@ namespace Avatar.TileEngine
 
             cameraPoint = Engine.VectorToCell(camera.Position);
             viewPoint = Engine.VectorToCell(new Vector2(
-                (camera.Position.X + Engine.ViewportRectanble.Width),
-                (camera.Position.Y + Engine.ViewportRectangle.Height)));
+                (camera.Position.X + Engine.ViewPortRectangle.Width),
+                (camera.Position.Y + Engine.ViewPortRectangle.Height)));
 
             min.X = Math.Max(0, cameraPoint.X - 1);
             min.Y = Math.Max(0, cameraPoint.Y - 1);
             max.X = Math.Min(viewPoint.X + 1, Width);
             max.Y = Math.Min(viewPoint.Y + 1, Height);
 
-            destination = new Rectangle(0, 0, Engine.TileWidth, Engine.TileHeight);)
+            destination = new Rectangle(0, 0, Engine.TileWidth, Engine.TileHeight);
             int tile;
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.Transformation);
