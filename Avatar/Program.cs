@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Avatar
+namespace Avatars
 {
 #if WINDOWS || LINUX
     /// <summary>

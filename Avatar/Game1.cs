@@ -1,13 +1,14 @@
-﻿using Avatar.Components;
-using Avatar.GameStates;
-using Avatar.StateManager;
-using Avatar.TileEngine;
+﻿using Avatars.CharacterComponents;
+using Avatars.Components;
+using Avatars.GameStates;
+using Avatars.StateManager;
+using Avatars.TileEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace Avatar
+namespace Avatars
 {
     /// <summary>
     /// This is the main type for your game.
@@ -19,6 +20,7 @@ namespace Avatar
         Dictionary<AnimationKey, Animation> playerAnimations = new Dictionary<AnimationKey, Animation>();
 
         GameStateManager gameStateManager;
+        CharacterManager characterManager;
 
         ITitleIntroState titleIntroState;
         IMainMenuState startMenuState;
@@ -54,6 +56,10 @@ namespace Avatar
         {
             get { return playerAnimations; }
         }
+        public CharacterManager CharacterManager
+        {
+            get { return characterManager; }
+        }
 
         public Game1()
         {
@@ -75,6 +81,8 @@ namespace Avatar
             gamePlayState = new GamePlayState(this);
 
             gameStateManager.ChangeState((TitleIntroState)titleIntroState, PlayerIndex.One);
+
+            characterManager = CharacterManager.Instance;
         }
 
         protected override void Initialize()

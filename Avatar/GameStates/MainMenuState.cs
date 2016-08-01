@@ -1,5 +1,5 @@
-﻿using Avatar.Components;
-using Avatar.StateManager;
+﻿using Avatars.Components;
+using Avatars.StateManager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avatar.GameStates
+namespace Avatars.GameStates
 {
     public interface IMainMenuState : IGameState
     {

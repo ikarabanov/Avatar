@@ -12,7 +12,7 @@ public enum AvatarElement
     Dark, Earth, Fire, Light, Water, Wind
 }
 
-namespace Avatar.AvatarComponents
+namespace Avatars.AvatarComponents
 {
     public class Avatar
     {

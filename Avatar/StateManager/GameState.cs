@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avatar.StateManager
+namespace Avatars.StateManager
 {
     public interface IGameState
     {

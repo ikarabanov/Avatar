@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avatar.TileEngine
+namespace Avatars.TileEngine
 {
     public enum AnimationKey { IdleLeft, IdleRight, IdleDown, IdleUp, WalkLeft, WalkRight, WalkDown, WalkUp, ThrowLeft, ThrowRight, DuckLeft, DuckRight, JumpLeft, JumpRight, Dieing,}
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Avatars.CharacterComponents;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avatar.TileEngine
+namespace Avatars.TileEngine
 {
     public class TileMap
     {
@@ -18,6 +19,7 @@ namespace Avatar.TileEngine
         TileLayer buildingLayer;
         TileLayer decorationLayer;
         Dictionary<string, Point> characters;
+        CharacterManager characterManager;
 
         [ContentSerializer]
         int mapWidth;
@@ -98,6 +100,7 @@ namespace Avatar.TileEngine
             this.characters = new Dictionary<string, Point>();
             this.tileSet = tileSet;
             this.mapName = mapName;
+            characterManager = CharacterManager.Instance;
         }
         public TileMap(TileSet tileSet, TileLayer groundLayer, TileLayer edgeLayer,TileLayer buildingLayer, TileLayer decorationLayer, string mapName) : this(tileSet, mapName)
         {
@@ -195,6 +198,25 @@ namespace Avatar.TileEngine
                 buildingLayer.Draw(gameTime, spriteBatch, tileSet, camera);
             if (decorationLayer != null)
                 decorationLayer.Draw(gameTime, spriteBatch, tileSet, camera);
+
+            DrawCharacters(gameTime, spriteBatch, camera);
+        }
+        public void DrawCharacters(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.Transformation);
+            foreach(string s in characters.Keys)
+            {
+                ICharacter c = CharacterManager.Instance.GetCharacter(s);
+
+                if (c!= null)
+                {
+                    c.Sprite.Position.X = characters[s].X * Engine.TileWidth;
+                    c.Sprite.Position.Y = characters[s].Y * Engine.TileHeight;
+
+                    c.Sprite.Draw(gameTime, spriteBatch);
+                }
+            }
+            spriteBatch.End();
         }
         #endregion
     }

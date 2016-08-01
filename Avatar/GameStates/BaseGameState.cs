@@ -1,4 +1,4 @@
-﻿using Avatar.StateManager;
+﻿using Avatars.StateManager;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avatar.GameStates
+namespace Avatars.GameStates
 {
     public class BaseGameState : GameState
     {

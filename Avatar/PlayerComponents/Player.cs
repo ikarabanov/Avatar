@@ -1,4 +1,4 @@
-﻿using Avatar.TileEngine;
+﻿using Avatars.TileEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avatar.PlayerComponents
+namespace Avatars.PlayerComponents
 {
     public class Player : DrawableGameComponent
     {

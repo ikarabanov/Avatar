@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avatar.Components
+namespace Avatars.Components
 {
     public enum MouseButtons
     {

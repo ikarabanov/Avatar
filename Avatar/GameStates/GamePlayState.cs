@@ -1,6 +1,7 @@
-﻿using Avatar.Components;
-using Avatar.PlayerComponents;
-using Avatar.TileEngine;
+﻿using Avatars.CharacterComponents;
+using Avatars.Components;
+using Avatars.PlayerComponents;
+using Avatars.TileEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avatar.GameStates
+namespace Avatars.GameStates
 {
     public interface IGamePlayState
     {
@@ -42,6 +43,7 @@ namespace Avatar.GameStates
         public override void Update(GameTime gameTime)
         {
             Vector2 motion = Vector2.Zero;
+            int cp = 8;
 
             if (Xin.KeyboardState.IsKeyDown(Keys.W) && Xin.KeyboardState.IsKeyDown(Keys.A))
             {
@@ -91,12 +93,38 @@ namespace Avatar.GameStates
             {
                 motion.Normalize();
                 motion *= (player.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+                Rectangle pRect = new Rectangle(
+                    (int)player.Sprite.Position.X + (int)motion.X + cp,
+                    (int)player.Sprite.Position.Y + (int)motion.Y + cp,
+                    Engine.TileWidth - cp, Engine.TileHeight - cp);
+
+                foreach(string s in map.Characters.Keys)
+                {
+                    ICharacter c = GameRef.CharacterManager.GetCharacter(s);
+                    Rectangle r = new Rectangle(
+                        (int)map.Characters[s].X * Engine.TileWidth + cp,
+                        (int)map.Characters[s].Y * Engine.TileHeight + cp,
+                        Engine.TileWidth - cp, Engine.TileHeight - cp);
+
+                    if (pRect.Intersects(r))
+                    {
+                        motion = Vector2.Zero;
+                        break;
+                    }
+                }
+
                 Vector2 newPosition = player.Sprite.Position + motion;
 
                 player.Sprite.Position = newPosition;
                 player.Sprite.IsAnimating = true;
                 player.Sprite.LockToMap(new Point(map.WidthInPixels, map.HeightInPixels));
             }
+            else
+            {
+                player.Sprite.IsAnimating = false;
+            }
+
             camera.LockToSprite(map, player.Sprite, Game1.ScreenRectangle);
             player.Sprite.Update(gameTime);
 
@@ -129,6 +157,14 @@ namespace Avatar.GameStates
             map.FillEdges();
             map.FillBuilding();
             map.FillDecoration();
+            ICharacter teacherOne = Character.FromString(GameRef, "Lance,teacherone,WalkDown,teacherone");
+            ICharacter teacherTwo = PCharacter.FromString(GameRef, "Marissa, teachertwo,WalkDown,teachertwo");
+
+            GameRef.CharacterManager.AddCharacter("teacherone", teacherOne);
+            GameRef.CharacterManager.AddCharacter("teachertwo", teacherTwo);
+
+            map.Characters.Add("teacherone", new Point(0, 4));
+            map.Characters.Add("teachertwo", new Point(4, 0));
 
             camera = new Camera();
         }
